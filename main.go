@@ -6,6 +6,7 @@ import (
   "text/template"
   "path/filepath"
   "sync"
+  "flag"
 )
 
 type templateHandler struct {
@@ -20,10 +21,12 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
       template.Must(template.ParseFiles(filepath.Join("templates",
         t.filename)))
   })
-  t.templ.Execute(w, nil)
+  t.templ.Execute(w, r)
 }
 
 func main() {
+  var addr = flag.String("addr", ":8080", "Application Address")
+  flag.Parse()
   r := newRoom()
   // route
   http.Handle("/", &templateHandler{filename: "chat.html"})
@@ -31,6 +34,7 @@ func main() {
   // start chat room
   go r.run()
   // start web server
+  log.Println("Start Web Server Port: ", *addr)
   if err := http.ListenAndServe(":8080", nil); err != nil {
     log.Fatal("ListenAndServe: ", err)
   }
