@@ -1,7 +1,14 @@
-package chat
+package main
+
+import (
+  "log"
+  "net/http"
+
+  "github.com/gorilla/websocket"
+)
 
 type room struct {
-  forward chan[]byte
+  forward chan []byte
   join    chan *client
   leave   chan *client
   clients map[*client]bool
@@ -24,7 +31,7 @@ func (r *room) run() {
       r.clients[client] = true
     case client := <- r.leave:
       // leave
-      delete(r.client, client)
+      delete(r.clients, client)
       close(client.send)
     case msg := <- r.forward:
       for client := range r.clients {
