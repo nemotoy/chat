@@ -7,7 +7,7 @@ import (
 
 func TestNew(t *testing.T) {
 	var buf bytes.Buffer
-	tarcer := New(&buf)
+	tracer := New(&buf)
 	if tracer == nil {
 		t.Error("Newからの戻り値がnilです")
 	} else {
