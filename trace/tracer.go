@@ -8,6 +8,10 @@ type tracer struct {
 	out	io.Writer
 }
 
+type nilTracer struct {
+
+}
+
 type Tracer interface {
 	Trace(...interface{})
 }
@@ -21,3 +25,8 @@ func New(w io.Writer) Tracer {
 	return &tracer{out: w}
 }
 
+func (t *nilTracer) Trace(a...interface{}) {}
+
+func Off() Tracer {
+	return &nilTracer{}
+}
