@@ -2,6 +2,9 @@ package main
 
 import (
 	"net/http"
+	"log"
+	"fmt"
+	"strings"
 )
 
 type authHandler struct {
@@ -26,5 +29,19 @@ func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func MustAuth(handler http.Handler) http.Handler {
 	return &authHandler{
 		next:	handler,
+	}
+}
+
+// loginHandler handles the third-party login process.
+func loginHandler(w http.ResponseWriter, r *http.Request) {
+	segs := strings.Split(r.URL.Path, "/")
+	action := segs[2]
+	provider := segs[3]
+	switch action {
+	case "login":
+		log.Println("ToDo: ログイン処理", provider)
+	default: 
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "アクション%sには非対応です", action)
 	}
 }
