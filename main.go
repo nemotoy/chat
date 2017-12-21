@@ -31,6 +31,7 @@ func main() {
   r := newRoom()
   // route
   http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+  http.Handle("/login", &templateHandler{filename: "login.html"})
   http.Handle("/room", r)
   // start chat room
   go r.run()
