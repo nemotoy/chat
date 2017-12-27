@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/stretchr/gomniauth"
   "log"
   "net/http"
   "text/template"
@@ -9,9 +8,10 @@ import (
   "sync"
   "flag"
 
-  "github.com/stretchr/gomniauth/providers/facebook"
-  "github.com/stretchr/gomniauth/providers/github"
-  "github.com/stretchr/gomniauth/providers/google"  
+	"github.com/stretchr/gomniauth"  
+	"github.com/stretchr/gomniauth/providers/facebook"
+	"github.com/stretchr/gomniauth/providers/github"
+	"github.com/stretchr/gomniauth/providers/google"
 )
 
 type templateHandler struct {
@@ -34,10 +34,10 @@ func main() {
   flag.Parse()
 
   // setup gomniauth
-  gomniauth.SetSecurityKey("hu278guth34gbker72392jhf3yg456sg0148fgbuj2387ugv32hb4o7798ergh2")
+  gomniauth.SetSecurityKey("AIzaSyAJaYYoorVvGKJqQ0wUVOykfCvwHhDhwq4")
   gomniauth.WithProviders(
-    facebook.New("208178147561-16rib2nc7hsbgjnde8jtb9k2gm5v5433.apps.googleusercontent.com", "LriuzY2vOdY_HK-UIfPoEHPc", "http://localhost:8080/auth/callback/facebook"),
-    github.New("208178147561-65vab8kbmsqbbpa1m5c26g9bpbijjbt4.apps.googleusercontent.com", "RPne_8U_UzUKymZJojSaJIDY", "http://localhost:8080/auth/callback/github"),
+    facebook.New("208178147561-16rib2nc7hsbgjnde8jtb9k2gm5v5433", "LriuzY2vOdY_HK-UIfPoEHPc", "http://localhost:8080/auth/callback/facebook"),
+    github.New("208178147561-65vab8kbmsqbbpa1m5c26g9bpbijjbt4", "RPne_8U_UzUKymZJojSaJIDY", "http://localhost:8080/auth/callback/github"),
     google.New("208178147561-jp8v2fdnf3scet47rhudi6dk2963ebjc.apps.googleusercontent.com", "zc4MlTeQ8qwuCr34OAn2gjIC", "http://localhost:8080/auth/callback/google"),
   )
   r := newRoom()
