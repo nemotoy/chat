@@ -9,5 +9,3 @@ type message struct {
 	Message	string
 	When	time.Time
 }
-
-aaaaaa
