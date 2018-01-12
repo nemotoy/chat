@@ -87,7 +87,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		userID := fmt.Sprintf("%x", m.Sum(nil))
 		// save some data
 		authCookieValue := objx.New(map[string]interface{} {
-			"userID": userID,
+			"userid": userID,
 			"name": user.Name(),
 			"avatar_url": user.AvatarURL(),
 			"email": user.Email(),
