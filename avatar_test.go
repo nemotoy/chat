@@ -37,3 +37,21 @@ func TestGravatarAvatar(t *testing.T) {
 		t.Errorf("GravatarAvatar.GetAvatarURL wrongly returned %s", url)
 	}
 }
+
+func TestFileSystemAvatar(t *testing.T) {
+
+	filename := filepath.Join("avatars", "abc.jpg")
+	ioutil.WriteFile(filename, []byte{}, 0007)
+	defer func() { os.Remove(filename) }
+	
+	var fileSystemAvatar fileSystemAvatar
+	client := new(client)
+	client,.userData = map[string]interface{}{"userid": "abc"}
+	url, err := fileSystemAvatar.GetAvatarURL(client)
+	if err != nil {
+		t.Errorf("FileSystemAvatar.GetAvatarURL should not return an error: %s", err)
+	}
+	if url != "/avatars/abc.jpg" {
+		t.Errorf("FileSystemAvatar.GetAvatarURL wrongly returned %s", url)
+	}
+}
